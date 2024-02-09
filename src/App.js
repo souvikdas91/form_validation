@@ -12,23 +12,31 @@ function App() {
     city: ''
   })
   const [errors, setErrors] = useState({})
+
+
   const handleChange = (e) => {
     const { name, value } = e.target
+    setErrors((prevErrors)=>({...prevErrors,[name]:""}))
     setUserInput(prevState => ({
       ...prevState, [name]: value
     }))
+
   }
+
   const handleSubmit = (e) => {
     e.preventDefault()
 
     const Validation = () => {
       let newErrors = {}
       if (!userInput.name) {
+
         newErrors.name = 'Name cannot be empty'
+        // setShowError(true)
+        // return
       }
       if (!userInput.email) {
         newErrors.email = 'Email cannot be empty '
-      } 
+      }
       // else if (/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(userInput.email)) {
       //   newErrors.email = 'Invalid Email'
       // }
@@ -73,7 +81,7 @@ function App() {
       <div>
         <form onSubmit={handleSubmit}>
           <label>Name : </label>
-          <input type='text' placeholder='Enter your Name' name='name' value={userInput.name} onChange={handleChange} />
+          <input type='text' placeholder='Enter your Name' name='name' value={userInput.name} onChange={handleChange} autoFocus />
           {errors.name && <span>{errors.name}</span>}
           <br />
           <label>Email : </label>
